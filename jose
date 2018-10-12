@@ -1,0 +1,147 @@
+#include <iostream>
+using namespace std;
+typedef int Node_entry;
+struct Node {
+	Node_entry entry;
+	Node *next;
+	Node();
+	Node(Node_entry item, Node *add_on = NULL);
+}Node;
+Node::Node() {
+	next = NULL;
+}
+Node::Node(Node_entry item, Node*add_on)
+{
+	entry = item;
+	next = add_on;
+}
+class CirList {
+public:
+	CirList();
+	~CirList();
+	int create_CirList(int n);
+	int add_from_head(Node_entry item);//头插
+	int add_from_tail(Node_entry item);//尾插
+	void print();
+	void del(Node* &node, int m);
+	void Node*get(Node* node, int m);
+	int length();
+	Node* get_Head();
+	void list_clear();
+private:
+	Node* head;
+	Node* tail;
+	int count;
+};
+CirList::CirList() {
+	head = tail = nullptr;
+	count = 0;
+}
+~CirList::CirList() {
+	Node *q = head->next;
+	int i = 1;
+	while (i++ <= length) {
+		head->next = q->next;
+		delete q;
+		q = head->next;
+	}
+	count = 0;
+}
+int create_CirList(int n) {
+	Node *q;
+	Node*head = (Node*)malloc(sizeof(Node));
+	head->entry = 1;
+	for (int i = 2;i < n;i++) {
+		Node*q = (Node*)malloc(sizeof(Node))
+			q->entry = i;
+		q++;
+	}
+	Node*tail = (Node*)malloc(sizeof(Node));
+	tail->entry = n;
+	tail->next = head;
+	count = n;
+	return Node;
+}
+int add_from_head(Node_entry item) {
+	Node*q;
+	Node*head = (Node*)malloc(sizeof(Node));
+	head = rail = nullptr;
+	for (int i = 0;i < item;i++) {
+		q = (Node*)malloc(sizeof(Node));
+		q->next = head;
+		head = q;
+	}
+	count = item;
+}
+int add_from_tail(Node_entry item) {
+	Node*q;
+	Node*head = (Node*)malloc(sizeof(Node));
+	head = rail = nullptr;
+	for (int i = 0;i < item;i++) {
+		q = (Node*)malloc(sizeof(Node));
+		q = rail->next;
+		rail = q;
+	}
+	count = item;
+}
+void print() {
+	Node*q;
+	for (q = head;q != rail;q++) {
+		cout << (q->entry);
+	}
+}
+void del(Node* &node, int m) {
+	Node*q;
+	Node*p;
+	p = node;
+	for (int i = 0;i < m - 2;i++) {
+		p = p->next;
+	}
+	q = p->next;
+	if (q == head) {
+		rail = head->next;
+		head = head->next;
+		delete q;
+	}
+	else if (q == rail) {
+		q->next = head;
+		delete rail;
+		rail = q;
+	}
+	else {
+		p->next = q->next;
+		delete q;
+	}
+	count--;
+}
+Node*get(Node* node, int m) {
+	Node*p;
+	p = node;
+	for (int i = 0;i < m - 1;i++) {
+		p = p->next;
+	}
+	return p->entry;
+}
+int length() {
+	return count;
+}
+Node* get_Head() {
+	return head;
+}
+void list_clear() {
+	head = rail = nullptr;
+	count = 0;
+}
+int main()
+{
+	Circlist<int>clist;
+	int m, n;
+	cout << "Please enter m,n:\n";
+	cin >> m >> n;
+	clist.create_CirList(n);
+	clist.print();
+	 while(clist.count>0){
+   del(Clist.Node*Node,m)}
+	clist.print();
+	return 0;
+}
