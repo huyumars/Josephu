@@ -1,12 +1,14 @@
 #include <iostream>
 using namespace std;
+#include <iostream>
+using namespace std;
 typedef int Node_entry;
 struct Node {
 	Node_entry entry;
 	Node *next;
 	Node();
 	Node(Node_entry item, Node *add_on = NULL);
-}Node;
+};
 Node::Node() {
 	next = NULL;
 }
@@ -18,13 +20,12 @@ Node::Node(Node_entry item, Node*add_on)
 class CirList {
 public:
 	CirList();
-	~CirList();
-	int create_CirList(int n);
-	int add_from_head(Node_entry item);//头插
-	int add_from_tail(Node_entry item);//尾插
+	void create_CirList(int n);
+	void add_from_head(Node_entry item);//头插
+	void add_from_tail(Node_entry item);//尾插
 	void print();
-	void del(Node* &node, int m);
-	void Node*get(Node* node, int m);
+	void Joseph(int m);
+	Node* get(Node* node, int m);
 	int length();
 	Node* get_Head();
 	void list_clear();
@@ -34,114 +35,115 @@ private:
 	int count;
 };
 CirList::CirList() {
-	head = tail = nullptr;
+	head = tail = NULL;
 	count = 0;
 }
-~CirList::CirList() {
-	Node *q = head->next;
-	int i = 1;
-	while (i++ <= length) {
-		head->next = q->next;
-		delete q;
-		q = head->next;
-	}
-	count = 0;
-}
-int create_CirList(int n) {
-	Node *q;
-	Node*head = (Node*)malloc(sizeof(Node));
+void CirList::create_CirList(int n) {
+	Node *s = head;
+	head = new Node;
 	head->entry = 1;
-	for (int i = 2;i < n;i++) {
-		Node*q = (Node*)malloc(sizeof(Node))
-			q->entry = i;
-		q++;
+	s->entry = 1;
+	for (int i = 2;i <=n;i++) {
+		Node*w = new Node;
+		w->entry = i;
+		s->next = w;
+		s = w;
 	}
-	Node*tail = (Node*)malloc(sizeof(Node));
+	tail = new Node;
 	tail->entry = n;
 	tail->next = head;
 	count = n;
-	return Node;
 }
-int add_from_head(Node_entry item) {
-	Node*q;
-	Node*head = (Node*)malloc(sizeof(Node));
-	head = rail = nullptr;
-	for (int i = 0;i < item;i++) {
-		q = (Node*)malloc(sizeof(Node));
-		q->next = head;
-		head = q;
+void CirList::add_from_head(Node_entry item) {
+	Node *s = head;
+	head = new Node;
+	head->entry = 1;
+	for (int i = 2;i <= item;i++) {
+		Node*w = new Node;
+		w->entry = i;
+		s->next = w;
+		s = w;
 	}
+	tail = new Node;
+	tail->entry = item;
+	s->next = tail;
+	tail->next = head;
 	count = item;
 }
-int add_from_tail(Node_entry item) {
-	Node*q;
-	Node*head = (Node*)malloc(sizeof(Node));
-	head = rail = nullptr;
-	for (int i = 0;i < item;i++) {
-		q = (Node*)malloc(sizeof(Node));
-		q = rail->next;
-		rail = q;
+void CirList::add_from_tail(Node_entry item) {
+	Node *s = tail;
+	tail = new Node;
+	tail->entry = item;
+	for (int i = item - 1;i > 1;i--) {
+		Node*w = new Node;
+		w->entry = i;
+		w->next = s;
+		s = w;
 	}
+	head = new Node;
+	head->entry = 1;
+	head->next = s;
+	tail->next = head;
 	count = item;
 }
-void print() {
-	Node*q;
-	for (q = head;q != rail;q++) {
-		cout << (q->entry);
-	}
-}
-void del(Node* &node, int m) {
-	Node*q;
+void CirList::print() {
 	Node*p;
-	p = node;
-	for (int i = 0;i < m - 2;i++) {
-		p = p->next;
+	for (p = head;p != tail;p++) {
+		cout << p->entry;
 	}
-	q = p->next;
-	if (q == head) {
-		rail = head->next;
-		head = head->next;
-		delete q;
+}
+void CirList::Joseph(int m) {
+	Node*p = head;Node*q;
+	int j = 1;//计数器
+	while (j != m-1) {
+		j++;
+		p=p->next;
 	}
-	else if (q == rail) {
+	q = p;
+	p = p->next;
+	if (p == head) {
+		head = p->next;
+		tail->next = head;
+		delete p;
+	}
+	else if (p == tail) {
 		q->next = head;
-		delete rail;
-		rail = q;
+		tail = q;
+		delete p;
 	}
 	else {
-		p->next = q->next;
-		delete q;
+		q->next = p->next;
+		delete p;
 	}
 	count--;
+
 }
-Node*get(Node* node, int m) {
+Node* CirList::get(Node* node, int m) {
 	Node*p;
 	p = node;
 	for (int i = 0;i < m - 1;i++) {
 		p = p->next;
 	}
-	return p->entry;
+	return p;
 }
-int length() {
+int CirList::length() {
 	return count;
 }
-Node* get_Head() {
+Node* CirList::get_Head() {
 	return head;
 }
-void list_clear() {
-	head = rail = nullptr;
+void CirList::list_clear() {
+	head = tail = NULL;
 	count = 0;
 }
-int main()
-{
-	Circlist<int>clist;
+int main() {
+	cout << "Please enter m,n:" << endl;
 	int m, n;
-	cout << "Please enter m,n:\n";
 	cin >> m >> n;
-	clist.create_CirList(n);
-	clist.print();
-	 while(clist.count>0){
-   del(Clist.Node*Node,m)}
-	clist.print();
+	CirList cirlist;
+	cirlist.create_CirList(n);
+	while (cirlist.length())
+		cirlist.Joseph(m);
+	cirlist.print();
 	return 0;
 }
