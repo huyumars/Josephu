@@ -9,7 +9,7 @@ struct Node {
 };
 class CirList {
 public:
-	CirList();
+	CirList(); //123
 	void create_CirList(int n);
 	void add_from_head(Node_entry item);//头插
 	void add_from_tail(Node_entry item);//尾插
